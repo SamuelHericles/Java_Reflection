@@ -5,6 +5,7 @@ import br.com.alura.alurator.playground.controle.Controle;
 //Saber instanciar um objeto a partir de dados dinâmicos do usuário -> ai que entra a classe<T>
 //Nessa classe vamos tentar pegar o Class<T> ela pode: listar atributos,métodos,construtores ou criar objetos
 //Você pega por: "Object".getClass / Sintaxe class => .class / Class.forName() 
+// A Class<T> é a porta de entrada da API reflection
 
 public class TesteInstanciaObjeto {
 	
@@ -23,5 +24,6 @@ public class TesteInstanciaObjeto {
 		
 		System.out.println(objetoControle2 instanceof Controle);
 		System.out.println(objetoControle instanceof Controle);// perguntar se a variavel é do tipo controle
+		
 	}
 }
