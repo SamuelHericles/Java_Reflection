@@ -1,4 +1,6 @@
-package br.com.alura.alurator;
+	package br.com.alura.alurator;
+
+import java.util.Map;
 
 import br.com.alura.alurator.protocolo.Request;
 import br.com.alura.alurator.reflexao.Reflexao;
@@ -11,7 +13,7 @@ public class Alurator {
 		this.pacoteBase = pacoteBase;
 	}
 
-	public Object executa(String url) throws ClassNotFoundException {
+	public Object executa(String url) throws ClassNotFoundException, NoSuchMethodException, SecurityException {
 
 		// /produto/lista
 		// produto -> roduto
@@ -21,23 +23,27 @@ public class Alurator {
 
 		String nomeControle = request.getNomeControle();
 		String nomeMetodo = request.getNomeMetodo();
+		Map<String, Object> params = request.getQueryParams();
+		
 		
 		// o newInstance da deprecado porque ele lança um monte de execeção, e ainda ou
 		// exeção
 
-		Object instanciaControle = new Reflexao().refleteClasse(pacoteBase + nomeControle).getConstrutorPadrao()
-				.invoca();
+//		Object instanciaControle = new Reflexao()
+//				.refleteClasse(pacoteBase + nomeControle)
+//				.getConstrutorPadrao()
+//				.invoca();
 
 //			Class<?> classeControle = Class.forName(pacoteBase + nomeControle);//Pega o full qualified name da classe controler
 //			
 //			Object instanciaControle = classeControle.getDeclaredConstructor().newInstance();//o método newInstance retorna um object
 //			
-		System.out.println(instanciaControle);
+//		System.out.println(instanciaControle);
 		
 		Object retorno =  new Reflexao()
-							.refleteClasse(pacoteBase + nomeMetodo)
+							.refleteClasse(pacoteBase + nomeControle)
 							.criaInstancia()
-							.getMetodo(nomeMetodo)
+							.getMetodo(nomeMetodo,params)
 							.invoca();
 		
 		

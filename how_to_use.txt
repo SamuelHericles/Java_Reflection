@@ -1,0 +1,1 @@
+Você vai utilizar a api de reflection em situações em que o tratamento deverá ser de maneira dinâmica
