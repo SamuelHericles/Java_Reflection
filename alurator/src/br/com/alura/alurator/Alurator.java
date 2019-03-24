@@ -1,45 +1,48 @@
 package br.com.alura.alurator;
 
-import java.lang.reflect.InvocationTargetException;
+import br.com.alura.alurator.protocolo.Request;
+import br.com.alura.alurator.reflexao.Reflexao;
 
 public class Alurator {
-	
+
 	private String pacoteBase;
-	
-	public Alurator(String pacoteBase) {//Construtor para pegar uma string com o nome do pacote
+
+	public Alurator(String pacoteBase) {// Construtor para pegar uma string com o nome do pacote
 		this.pacoteBase = pacoteBase;
 	}
-	
+
 	public Object executa(String url) throws ClassNotFoundException {
 
 		// /produto/lista
 		// produto -> roduto
 		// p -> P
+
+		Request request = new Request(url);
+
+		String nomeControle = request.getNomeControle();
+		String nomeMetodo = request.getNomeMetodo();
 		
-		String[] partesUrl = url.replaceFirst("/","")//tira onde tiver / por 
-			.split("/");//quebra a string em /
+		// o newInstance da deprecado porque ele lança um monte de execeção, e ainda ou
+		// exeção
+
+		Object instanciaControle = new Reflexao().refleteClasse(pacoteBase + nomeControle).getConstrutorPadrao()
+				.invoca();
+
+//			Class<?> classeControle = Class.forName(pacoteBase + nomeControle);//Pega o full qualified name da classe controler
+//			
+//			Object instanciaControle = classeControle.getDeclaredConstructor().newInstance();//o método newInstance retorna um object
+//			
+		System.out.println(instanciaControle);
 		
-		String nomeControle = Character.toUpperCase(partesUrl[0].charAt(0))
-								+ partesUrl[0].substring(1) + "Controller";
+		Object retorno =  new Reflexao()
+							.refleteClasse(pacoteBase + nomeMetodo)
+							.criaInstancia()
+							.getMetodo(nomeMetodo)
+							.invoca();
 		
-		//o newInstance da deprecado porque ele lança um monte de execeção, e ainda ou exeção
-		try {
-			Class<?> classeControle = Class.forName(pacoteBase + nomeControle);//Pega o full qualified name da classe controler
-			
-			Object instanciaControle = classeControle.getDeclaredConstructor().newInstance();//o método newInstance retorna um object
-			
-			System.out.println(instanciaControle);
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException 
-				| NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-			throw new RuntimeException(e);
 		
-		} catch( InvocationTargetException e) {
-			e.printStackTrace();
-			throw new RuntimeException("houve um erro no construtor",e.getTargetException());
-		}
+		System.out.println(retorno);
 		
-		return null;
+		return retorno;
 	}
 }
