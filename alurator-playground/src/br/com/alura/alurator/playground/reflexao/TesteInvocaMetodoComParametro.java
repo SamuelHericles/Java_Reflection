@@ -5,7 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class TesteInvocaMetodoComParametro {
+	//Classe pegar os endereços dos métodos intanciados bem como os outros referenciados
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+			
 		Class<?> controleClasse = 
 				Class.forName("br.com.alura.alurator.playground.controle.Controle");
 		

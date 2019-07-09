@@ -14,34 +14,44 @@ import java.lang.reflect.Method;
 
 public class TesteInvocaMetodoSemParametro {
 	
+	//Classe principal
 	public static void main(String[] args) throws Exception {
 	
+		//Recebe o endereço da classe
 		Class<?> subControleClasse = 
 				Class.forName("br.com.alura.alurator.playground.controle.SubControle");
 		
+		//Recebe o endenreço do construtor
 		Constructor<?> construtorPadrao = 
 				subControleClasse.getDeclaredConstructor();
 		
+		//Habilita para visualizar
 		construtorPadrao.setAccessible(true);
 	
+		//Abre uma instância da classe
 		Object subControle = construtorPadrao.newInstance();
 				
-		for  ( Method m : subControleClasse.getMethods()){// Retorna todos os métodos publicos usados pela class, sub classe e outras 
+		// Retorna todos os métodos publicos usados pela class, sub classe e outras 
+		for  ( Method m : subControleClasse.getMethods()){
 			System.out.println(m);
 		}
 		
 		System.out.println();
 		
+		// Retorna todos os métodos não publicos usados pela class, sub classe e outras 
 		for (Method m : subControleClasse.getDeclaredMethods()) {
 			System.out.println(m);
 		}
 		
 		System.out.println();
 		
+		//Retorna os métodos das classes declarados
 		Method m =  subControleClasse.getDeclaredMethod("metodoSubControle1");
 		m.setAccessible(true);
+		//Instacia esses métodos
 		Object retorno =  m.invoke(subControle);
 		
+		//Mostra o endereço de todos eles
 		System.out.println(retorno);
 		
 	}

@@ -10,20 +10,28 @@ import br.com.alura.alurator.playground.controle.Controle;
 public class TesteInstanciaObjeto {
 	
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		
 		// url -> /controle/lista
-		Class<Controle> controleClasse1 = Controle.class;// Consegue pegar todos os atributos e objetos da classe controle
+
+		// Consegue pegar todos os atributos e objetos da classe controle
+		Class<Controle> controleClasse1 = Controle.class;
 		
 		Controle controle = new Controle();
-		Class<? extends Controle> controleClasse2 = controle.getClass();//Só vale para class mãe e filhas de Controle
+
+		//Só vale para class mãe e filhas de Controle
+		Class<? extends Controle> controleClasse2 = controle.getClass();
 		
-		Class<?> controleClasse3 = //esse controle pode inferir a qualquer classe, parametrizado para qualquer coisa
+		//esse controle pode inferir a qualquer classe, parametrizado para qualquer coisa
+		Class<?> controleClasse3 = 
 				Class.forName("br.com.alura.alurator.playground.controle.Controle");
 		
-		Controle objetoControle = controleClasse1.newInstance(); // retorna uma object
+		// retorna uma object
+		Controle objetoControle = controleClasse1.newInstance(); 
 		Object objetoControle2 =  controleClasse2.newInstance();
 		
+		// perguntar se a variavel é do tipo controle
 		System.out.println(objetoControle2 instanceof Controle);
-		System.out.println(objetoControle instanceof Controle);// perguntar se a variavel é do tipo controle
+		System.out.println(objetoControle instanceof Controle);
 		
 	}
 }

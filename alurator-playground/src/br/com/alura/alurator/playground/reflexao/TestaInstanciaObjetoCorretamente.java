@@ -12,24 +12,11 @@ public class TestaInstanciaObjetoCorretamente {
 		
 		Class<?> controleClass1 = 
 				Class.forName("br.com.alura.alurator.playground.controle.Controle");
-//		
-////		try {
-////			controleClass1.getDeclaredConstructor().newInstance();
-////		} catch(InvocationTargetException e) {
-////			e.printStackTrace();
-////			System.out.println(e.getTargetException());
-////		}
-		
-		
-		
-		
-		//controleClass1.newInstance();
-		
 		
 		Constructor<SubControle> subControle =
 				subControleClasse1.getDeclaredConstructor();
+
 		//Com o getConstrutor só não é possivel saber o tipo de retorno da função
-		
 		subControle.setAccessible(true);
 		Object subControle1 = subControle.newInstance();//newinstance da classe object
 		
